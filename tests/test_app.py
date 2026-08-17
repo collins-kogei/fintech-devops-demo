@@ -16,6 +16,17 @@ def test_home():
     assert data["status"] == "healthy"
 
 
+def test_health():
+    client = app.test_client()
+    response = client.get("/health")
+
+    assert response.status_code == 200
+
+    data = response.get_json()
+    assert data["application"] == "Fintech Demo"
+    assert data["status"] == "running"
+
+
 def test_successful_transaction():
     client = app.test_client()
 
@@ -40,6 +51,8 @@ def test_invalid_transaction():
     )
 
     assert response.status_code == 400
+
+
 def test_get_transactions():
     client = app.test_client()
 
@@ -49,4 +62,4 @@ def test_get_transactions():
 
     data = response.get_json()
     assert data["count"] == 2
-    assert len(data["transactions"]) == 2    
+    assert len(data["transactions"]) == 2
