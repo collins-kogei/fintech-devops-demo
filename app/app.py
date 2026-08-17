@@ -34,5 +34,26 @@ def transaction():
     }), 201
 
 
+@app.route("/transactions", methods=["GET"])
+def get_transactions():
+    transactions = [
+        {
+            "id": 1,
+            "amount": 1000,
+            "status": "success"
+        },
+        {
+            "id": 2,
+            "amount": 2500,
+            "status": "success"
+        }
+    ]
+
+    return jsonify({
+        "transactions": transactions,
+        "count": len(transactions)
+    })
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
